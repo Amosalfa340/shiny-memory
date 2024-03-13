@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign Up</title>
+</head>
+<body>
+
+<h2>Sign Up</h2>
+<form id="signupForm">
+  <label for="username">Username:</label><br>
+  <input type="text" id="username" name="username" required><br>
+  
+  <label for="email">Email:</label><br>
+  <input type="email" id="email" name="email" required><br>
+  
+  <label for="password">Password:</label><br>
+  <input type="password" id="password" name="password" required><br><br>
+  
+  <input type="submit" value="Sign Up">
+</form>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+<script>
+  const supabaseUrl = 'https://skyrbuelauzbedgignph.supabase.co'; // Replace with your Supabase project URL
+  const supabaseApiKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNreXJidWVsYXV6YmVkZ2lnbnBoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDk2MTY1NjQsImV4cCI6MjAyNTE5MjU2NH0.gzYzpurOFRNpFYlFzWPU9W2C23f5pttBGgnY70jmykA'; // Replace with your Supabase public API key
+
+  const supabase = createClient(supabaseUrl, supabaseApiKey);
+
+  document.getElementById("signupForm").addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    // Get user input from the form
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    // Sign up the user with Supabase
+    let { user, error } = await supabase.auth.signUp({
+      email: email,
+      password: password
+    });
+
+    if (error) {
+      console.error('Error:', error.message);
+      // Handle error, e.g., display error message to the user
+    } else {
+      console.log('User signed up successfully:', user);
+      // Handle success, e.g., redirect to login page or display success message
+    }
+  });
+</script>
+
+</body>
+</html
